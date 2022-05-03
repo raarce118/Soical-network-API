@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose");
 
-const { schema, model } = requre('mongoose');
+const { schema, model } = require('mongoose');
 
  // var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; <-- stack overflow Match and Validate property
 
@@ -19,19 +19,19 @@ const UserSchema =  new Schema(
          type: String,
          required: true,
          unique: true,
-         validate: [validateEmail, 'Please use a valid email address'],
+         //validate: [validateEmail, 'Please use a valid email address'],
          match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
     },
  // Similar to comments array from pizza hunt module. Thoughts will be coming from User
      thoughts: [
         {
-         type: schema.Types.ObjectId,
+         type: Schema.Types.ObjectId,
          ref: 'Thought'
         }
     ],
      friends: [
          {
-         type: schema.Types.ObjectId,
+         type: Schema.Types.ObjectId,
          ref: 'User'
          }
      ]

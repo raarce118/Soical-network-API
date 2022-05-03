@@ -1,24 +1,11 @@
 const router = require('express').Router();
-const {
-  getAllUser,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
+const apiRoutes = require('./api');
 
-} = require('../../controllers/user-controller');
+router.use('/api', apiRoutes);
 
-// /api/user
-router
-  .route('/')
-  .get(getAllUser)
-  .post(createUser);
+router.use((req, res) => {
+    res.status(404).send('<h1>😝 Error!</h1>');
+});
 
-// /api/User/:id
-router
-  .route('/:id')
-  .get(getUserById)
-  .put(updateUser)
-  .delete(deleteUser);
 
 module.exports = router;
