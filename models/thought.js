@@ -1,5 +1,5 @@
 const { Schema, model, Types } = require("mongoose");
-const { DateTime } = require("luxon")
+const { DateTime } = require("luxon");
 
 
 const ReactionsSchema = new Schema(
@@ -28,16 +28,19 @@ createdAt: {
     type: Date,
     default: DateTime.now(),
     get: createdAtVal => createdAtVal.toLocaleString()
+}
 },
+{
 
 
 
     toJSON: {
-         virtuals: true,
+         
          getters: true
     },
      id: false
 }
+    
 );
 
 const ThoughtSchema = new Schema(
@@ -74,13 +77,14 @@ reactions: [ReactionsSchema]
     },
      id: false
 }
+    
 );
 
 
 
 // get total count of comments and replies on retrieval
 ThoughtSchema.virtual('reactionCount').get(function() {
-    return this.friend.length;
+    return this.reactions.length;
   });
   
   const Thought = model('Thought', ThoughtSchema);
