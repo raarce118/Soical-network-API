@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose");
 
-const { schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
  // var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; <-- stack overflow Match and Validate property
 

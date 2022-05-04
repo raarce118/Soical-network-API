@@ -53,7 +53,7 @@ updateUser({ params, body }, res) {
       },
 // Need to work on adding and removing a friend
 
-// delete pizza
+// delete User
 deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => res.json(dbUserData))
