@@ -2,7 +2,7 @@ const { Schema, model, Types } = require("mongoose");
 const { DateTime } = require("luxon");
 
 
-const ReactionsSchema = new Schema(
+const ReactionSchema = new Schema(
 
     {
 
@@ -67,7 +67,7 @@ username: {
     trim: true
 },
 
-reactions: [ReactionsSchema]
+reactions: [ReactionSchema]
 
 },
 {

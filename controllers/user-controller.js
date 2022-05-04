@@ -7,7 +7,7 @@ const userController = {
 
 getAllUser(req, res) {
     User.find({})
-         .select('-__v')
+         .select('-__v -thoughts')
          .sort({ _id: -1 })
          .then(dbUserData => res.json(dbUserData))
          .catch(err => {
