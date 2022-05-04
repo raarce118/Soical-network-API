@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 
 // Used same template as pizza module. 
@@ -51,16 +51,39 @@ updateUser({ params, body }, res) {
           })
          .catch(err => res.json(err));
       },
-// Need to work on adding and removing a friend
 
 // delete User
 deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.json(err));
-  }
+  },
+
+// add friend
+
+addFriend({ params }, res ) {
+   Promise.all([
+     User.findOneAndUpdate(
+       { _id:params.id },
+       { $push: { friends: params.friendId } },
+       { new: true, runValidators: true }
+     ),
+     User.findOneAndUpdate(
+       { _id: params.friendId },
+       { $push: { friends: params.id } },
+       { new: true, runValidators: true }
+     )
+   ])
+   .then(([dbUserData, dbFriendData]) => {
+     if( !dbUserData || !dbFriendData ) {
+       res.status(404).json({ message: 'No User found with this id!'  })
+       return;
+     }
+       res.json(dbUserData);
+   })
+}
+
+
 };
-
-
 
 module.exports = userController;
