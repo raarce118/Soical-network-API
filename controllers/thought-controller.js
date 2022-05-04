@@ -6,7 +6,7 @@ const thoughtController = {
     getAllThought(req, res) {
         Thought.find({})
              .select('-__v')
-             .sort({ _id: 1 })
+             .sort({ _id: -1 })
              .then(dbThoughtData => res.json(dbThoughtData))
              .catch(err => {
              console.log(err);
