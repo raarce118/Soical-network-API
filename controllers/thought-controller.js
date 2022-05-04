@@ -51,12 +51,49 @@ updateThought({ params, body }, res) {
          .catch(err => res.json(err));
       },
 
-// delete User
+// delete Thought
 deleteThought({ params }, res) {
      Thought.findOneAndDelete({ _id: params.id })
      .then(dbThoughtData => res.json(dbThoughtData))
      .catch(err => res.json(err));
+  },
+
+// Add Reaction
+
+  addReaction({ params, body }, res) {
+     Thought.findOneAndUpdate(
+     { _id: params.id },
+     { $push: { reactions: body } },
+     { new: true, runValidators: true }
+ )
+       
+     .then(dbThoughtData => {
+     console.log(dbThoughtData);
+     if (!dbThoughtData) {
+     res.status(404).json({ message: 'No thought found with this id!' });
+     return;
+     }
+     res.json(dbThoughtData);
+     })
+     .catch(err => res.json(err));
+  },
+
+// Remove Reaction
+  removeReaction({ params }, res) {
+         Thought.findOneAndUpdate (
+         { _id: params.id },
+         { $pull: { reaction: params.reactionId } },
+         { new: true }
+  )
+         .then(dbThoughtData => {
+         if (!dbThoughtData) {
+         res.status(404).json({ message: 'No Thought found with this id!' });
+         return;
   }
+         res.json(dbThoughtData);
+})
+         .catch(err => res.json(err));
+}
     
 }
 
